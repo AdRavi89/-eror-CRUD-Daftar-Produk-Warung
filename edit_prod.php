@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Barang</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-BcU8f1sFfLZzta0gYU5L0cpogbPj1sc7jnnICLu0w6vr18TtrtrJ2Y7pxO3+GCvVRD6+0h2rAI2eCS4aDyi4bQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Tambahkan stylesheet atau styling CSS sesuai kebutuhan -->
     <style>
         body {

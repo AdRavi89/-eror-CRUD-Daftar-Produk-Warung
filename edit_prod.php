@@ -65,14 +65,29 @@
 </head>
 <body>
 
-<a href="c.stok.php"><button id="tambahButton">Tambah</button></a><hr>
+<!-- <a href="c.stok.php"><button id="tambahButton">Tambah</button></a><hr> -->
 
 
 <?php
 include 'config.php';
-
 // Ambil ID barang dari URL
 $id_barang = $_GET['id_barang'];
+
+?>
+<a href="c.stok.php?id_barang=<?php echo $id_barang; ?>"><button id="tambahButton">Tambah</button></a><hr>
+<script>
+    function tambahButton(id_barang) {
+        window.location.href = "c.stok.php?id_barang=" + id_barang;
+    }
+</script>
+<?php
+// Ambil ID barang dari URL
+$id_barang = $_GET['id_barang'];
+if (!empty($id_barang)) {
+    // Jalankan query SQL di sini
+} else {
+    echo "ID barang tidak valid.";
+}
 
 // Query untuk mendapatkan data barang dari tbl_toko berdasarkan ID
 $sql_toko = "SELECT * FROM tbl_toko WHERE id_barang = $id_barang";
@@ -110,7 +125,10 @@ if ($result_toko->num_rows > 0) {
     ?>
     <table>
         <tr>
-            <td rowspan="5"><img src="<?php echo $row_toko['img_prod']; ?>" alt="Foto Barang"></td>
+            
+            <td rowspan="5"><a href="e.prod.php?id_barang=<?php echo $id_barang; ?>">
+            <img src="<?php echo $row_toko['img_prod']; ?>" alt="Foto Barang"></a>
+            </td>
             <td>NAMA BARANG</td>
             <td><?php echo $row_toko['nama_barang']; ?></td>
         </tr>
@@ -144,7 +162,7 @@ if ($result_toko->num_rows > 0) {
         <tbody>
             <?php
             // Query untuk mendapatkan data dari tbl_prod dan tbl_toko
-            $sql_prod = "SELECT p.id_barang, p.tgl_belanja,p.nm_toko, p.satuan, p.h_toko, p.isi, (p.h_toko / p.isi) AS harga_jual
+            $sql_prod = "SELECT p.id_barang, p.id_belanja,p.tgl_belanja,p.nm_toko, p.satuan, p.h_toko, p.isi, (p.h_toko / p.isi) AS harga_jual
                         FROM tbl_prod p
                         JOIN tbl_toko t ON p.id_barang = t.id_barang
                         WHERE p.id_barang = $id_barang";
@@ -162,10 +180,10 @@ if ($result_toko->num_rows > 0) {
                             <td>" . $row_prod["isi"] . "</td>
                             <td>Rp. " . number_format($row_prod["harga_jual"], 2, ',', '.') . "</td>
                             <td>
-                                <form method='post' action='e_stok.php?id_barang=" . $row_prod['id_barang'] . "' style='display:inline-block;'>
+                                <form method='post' action='e.stok.php?id_belanja=" . $row_prod['id_belanja'] . "' style='display:inline-block;'>
                                     <button type='submit' name='editButton'>Edit</button>
                                 </form>
-                                <form method='post' action='delete.php?id_barang=" . $row_prod['id_barang'] . "' style='display:inline-block;'>
+                                <form method='post' action='e.delete.php?id_belanja=" . $row_prod['id_belanja'] . "' style='display:inline-block;'>
                                     <button type='submit' name='deleteButton'>Delete</button>
                                 </form>
                             </td>

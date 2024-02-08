@@ -87,7 +87,7 @@
                 <th onclick="sortTable(0)">No.</th>
                 <th onclick="sortTable(1)">Barang</th>
                 <th>Deskripsi</th>
-                <th>EXE</th>
+                <!-- <th>EXE</th> -->
             </tr>
         </thead>
         <tbody>

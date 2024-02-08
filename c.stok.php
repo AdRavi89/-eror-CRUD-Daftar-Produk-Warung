@@ -64,15 +64,36 @@
 <?php
 include 'config.php';
 
+// Inisialisasi nilai default untuk $id_barang
+$id_barang = '';
+$nama_barang ='';
+
+// Jika id_barang tersedia dalam URL, ambil nilainya
+if (isset($_GET['id_barang'])) {
+    $id_barang = $_GET['id_barang'];
+    // Ambil nama barang dari database berdasarkan id_barang
+    $sql_nama_barang = "SELECT nama_barang FROM tbl_toko WHERE id_barang = '$id_barang'";
+    $result_nama_barang = $conn->query($sql_nama_barang);
+    if ($result_nama_barang->num_rows > 0) {
+        $row_nama_barang = $result_nama_barang->fetch_assoc();
+        $nama_barang = $row_nama_barang['nama_barang'];
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_barang = $_POST['id_barang'];
+        // Mengambil nilai id_barang dari formulir jika tersedia
+    if(isset($_POST['id_barang'])) {
+        $id_barang = $_POST['id_barang'];
+    }
+    // $id_barang = $_POST['id_barang'];
     $tgl_belanja = $_POST['tgl_belanja'];
+    $nm_toko = $_POST['nm_toko'];
     $h_toko = $_POST['h_toko'];
     $satuan = $_POST['satuan'];
     $isi = $_POST['isi'];
 
-    $sql = "INSERT INTO tbl_prod (id_barang, tgl_belanja, h_toko, satuan, isi)
-            VALUES ('$id_barang', '$tgl_belanja', '$h_toko', '$satuan', '$isi')";
+    $sql = "INSERT INTO tbl_prod (id_barang, tgl_belanja, nm_toko, h_toko, satuan, isi)
+            VALUES ('$id_barang', '$tgl_belanja','$nm_toko', '$h_toko', '$satuan', '$isi')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Data Berhasil Disimpan.";
@@ -91,24 +112,31 @@ $conn->close();
 
 
 <form method="POST" action="">
-    <label for="id_barang">ID Barang:</label>
-    <select id="id_barang" name="id_barang" required>
+    <label for="id_nama_barang">ID & Nama Barang:</label>
+    <input type="text" id="id_nama_barang" name="id_nama_barang" value="[ ID : <?php echo $id_barang . ' ] - ' . $nama_barang; ?>" readonly>
+    <input type="hidden" id="id_barang" name="id_barang" value="<?php echo $id_barang; ?>">
+
+
+    <!-- <select id="id_barang" name="id_barang" required> -->
         <!-- Isi dropdown dengan data dari tbl_toko -->
         <?php
-        include 'config.php';
-        $sql = "SELECT id_barang, nama_barang FROM tbl_toko";
-        $result = $conn->query($sql);
+        // include 'config.php';
+        // $sql = "SELECT id_barang, nama_barang FROM tbl_toko";
+        // $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<option value='" . $row['id_barang'] . "'>" . $row['nama_barang'] . "</option>";
-            }
-        }
+        // if ($result->num_rows > 0) {
+        //     while ($row = $result->fetch_assoc()) {
+        //         echo "<option value='" . $row['id_barang'] . "'>" . $row['nama_barang'] . "</option>";
+        //     }
+        // }
         ?>
-    </select>
+    <!-- </select> -->
 
     <label for="tgl_belanja">Tgl. Belanja:</label>
     <input type="date" id="tgl_belanja" name="tgl_belanja" required>
+
+    <label for="nm_toko">Nama Toko:</label>
+    <input type="text" id="nm_toko" name="nm_toko" required>
 
     <label for="h_toko">Harga Toko:</label>
     <input type="text" id="h_toko" name="h_toko" required>

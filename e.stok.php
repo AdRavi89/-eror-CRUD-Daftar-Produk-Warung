@@ -64,12 +64,19 @@
 <?php
 include 'config.php';
 
-// Ambil ID barang dari URL
-$id_barang = $_GET['id_barang'];
+// Ambil ID belanja dari URL
+$id_belanja = $_GET['id_belanja'];
 
-// Query untuk mendapatkan data barang dari tbl_prod berdasarkan ID
-$sql = "SELECT * FROM tbl_prod WHERE id_barang = $id_barang";
+// Query untuk mendapatkan data barang dari tbl_prod berdasarkan ID belanja
+$sql = "SELECT * FROM tbl_prod WHERE id_belanja = $id_belanja";
 $result = $conn->query($sql);
+
+// Inisialisasi variabel
+$tgl_belanja = "";
+$nm_toko = "";
+$h_toko = "";
+$satuan_brg = "";
+$isi = "";
 
 // Periksa apakah metode permintaan adalah POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -77,19 +84,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(isset($_POST['tgl_belanja']) && isset($_POST['h_toko']) && isset($_POST['satuan']) && isset($_POST['isi'])) {
         $tgl_belanja = $_POST['tgl_belanja'];
         $h_toko = $_POST['h_toko'];
-        $satuan = $_POST['satuan'];
+        $satuan_brg = $_POST['satuan'];
         $isi = $_POST['isi'];
 
-        $sql_edit = "UPDATE tbl_prod SET tgl_belanja = '$tgl_belanja', h_toko = '$h_toko', satuan = '$satuan', isi = '$isi' WHERE id_barang = $id_barang";
+        $sql_edit = "UPDATE tbl_prod SET tgl_belanja = '$tgl_belanja', h_toko = '$h_toko', satuan = '$satuan_brg', isi = '$isi' WHERE id_belanja = $id_belanja";
 
         if ($conn->query($sql_edit) === TRUE) {
             echo "Data berhasil diubah.";
+            // Redirect setelah berhasil disimpan
+            // echo "<meta http-equiv='refresh' content='1;url=index.php'>";
+            sleep(2);
+            // Redirect ke halaman edit_prod.php dengan menyertakan parameter id_barang
+            header("Location: index.php");
         } else {
             echo "Error: " . $sql_edit . "<br>" . $conn->error;
         }
     } else {
-        echo "Semua field harus diisi.";
+        echo "";
     }
+}
+
+// Periksa apakah ada hasil dari query
+if ($result->num_rows > 0) {
+    // Ambil baris data sebagai asosiatif array
+    $row = $result->fetch_assoc();
+    
+    // Isi nilai-nilai dari database ke variabel yang sesuai
+    $tgl_belanja = $row['tgl_belanja'];
+    $nm_toko = $row['nm_toko'];
+    $h_toko = $row['h_toko'];
+    $satuan_brg = $row['satuan'];
+    $isi = $row['isi'];
 }
 
 $conn->close();
@@ -98,20 +123,23 @@ $conn->close();
 
 <form method="POST" action="">
     <label for="tgl_belanja">Tgl. Belanja:</label>
-    <input type="date" id="tgl_belanja" name="tgl_belanja" required>
+    <input type="date" id="tgl_belanja" name="tgl_belanja" value="<?php echo $tgl_belanja; ?>" required>
+
+    <label for="nm_toko">Nama Toko:</label>
+    <input type="text" id="nm_toko" name="nm_toko" value="<?php echo $nm_toko; ?>" required>
 
     <label for="h_toko">Harga Toko:</label>
-    <input type="text" id="h_toko" name="h_toko" required>
+    <input type="text" id="h_toko" name="h_toko" value="<?php echo $h_toko; ?>" required>
 
     <label for="satuan">Satuan:</label>
     <select id="satuan" name="satuan" required>
-        <option value="Pcs">Pcs</option>
-        <option value="Pack">Pack</option>
-        <option value="Bungkus">Bungkus</option>
+        <option value="Pcs" <?php if ($satuan_brg === 'Pcs') echo 'selected'; ?>>Pcs</option>
+        <option value="Pack" <?php if ($satuan_brg === 'Pack') echo 'selected'; ?>>Pack</option>
+        <option value="Bungkus" <?php if ($satuan_brg === 'Bungkus') echo 'selected'; ?>>Bungkus</option>
     </select>
 
     <label for="isi">Isi:</label>
-    <input type="number" id="isi" name="isi" required>
+    <input type="number" id="isi" name="isi" value="<?php echo $isi; ?>" required>
 
     <input type="submit" value="Submit">
 </form>

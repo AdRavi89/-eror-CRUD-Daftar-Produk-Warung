@@ -4,79 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Data Belanja</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 10px;
-            background-color: #f4f4f4;
-        }
-
-        form {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        select,
-        input[type="text"],
-        input[type="date"],
-        input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        /* Styling untuk tampilan responsif (opsional) */
-        @media screen and (max-width: 600px) {
-            form {
-                margin: 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<h1 style="text-align: center; font-weight: bold; color: #f5d544; text-shadow: 2px 2px #FF0000;">Edit Data Belanja</h1>
 
 <?php
-include 'config.php';
+include '../config.php';
 
 // Ambil ID belanja dari URL
 $id_belanja = $_GET['id_belanja'];
 
 // Query untuk mendapatkan data barang dari tbl_prod berdasarkan ID belanja
-$sql = "SELECT * FROM tbl_prod WHERE id_belanja = $id_belanja";
+$sql = "SELECT p.*, t.nama_barang FROM tbl_prod p
+        JOIN tbl_toko t ON p.id_barang = t.id_barang
+        WHERE id_belanja = $id_belanja";
 $result = $conn->query($sql);
 
 // Inisialisasi variabel
+$id_barang = "";
+$nama_barang = "";
 $tgl_belanja = "";
 $nm_toko = "";
 $h_toko = "";
 $satuan_brg = "";
 $isi = "";
+
+// Periksa apakah ada hasil dari query
+if ($result->num_rows > 0) {
+    // Ambil baris data sebagai asosiatif array
+    $row = $result->fetch_assoc();
+    
+    // Isi nilai-nilai dari database ke variabel yang sesuai
+    $id_barang = $row['id_barang'];
+    $nama_barang = $row['nama_barang'];
+    $tgl_belanja = $row['tgl_belanja'];
+    $nm_toko = $row['nm_toko'];
+    $h_toko = $row['h_toko'];
+    $satuan_brg = $row['satuan'];
+    $isi = $row['isi'];
+}
 
 // Periksa apakah metode permintaan adalah POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -92,10 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($conn->query($sql_edit) === TRUE) {
             echo "Data berhasil diubah.";
             // Redirect setelah berhasil disimpan
-            // echo "<meta http-equiv='refresh' content='1;url=index.php'>";
+            // echo "<meta http-equiv='refresh' content='1;url=katalog.php'>";
             sleep(2);
             // Redirect ke halaman edit_prod.php dengan menyertakan parameter id_barang
-            header("Location: index.php");
+            header("Location: ../katalog.php");
         } else {
             echo "Error: " . $sql_edit . "<br>" . $conn->error;
         }
@@ -104,24 +73,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Periksa apakah ada hasil dari query
-if ($result->num_rows > 0) {
-    // Ambil baris data sebagai asosiatif array
-    $row = $result->fetch_assoc();
-    
-    // Isi nilai-nilai dari database ke variabel yang sesuai
-    $tgl_belanja = $row['tgl_belanja'];
-    $nm_toko = $row['nm_toko'];
-    $h_toko = $row['h_toko'];
-    $satuan_brg = $row['satuan'];
-    $isi = $row['isi'];
-}
-
 $conn->close();
 ?>
 
 
 <form method="POST" action="">
+    <label for="id_nama_barang">ID & Nama Barang:</label>
+    <input type="text" id="id_nama_barang" name="id_nama_barang" value="[ ID : <?php echo $id_barang . ' ] - ' . $nama_barang; ?>" readonly>
+    <input type="hidden" id="id_barang" name="id_barang" value="<?php echo $id_barang; ?>">
+
     <label for="tgl_belanja">Tgl. Belanja:</label>
     <input type="date" id="tgl_belanja" name="tgl_belanja" value="<?php echo $tgl_belanja; ?>" required>
 

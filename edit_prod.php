@@ -3,82 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Barang</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-BcU8f1sFfLZzta0gYU5L0cpogbPj1sc7jnnICLu0w6vr18TtrtrJ2Y7pxO3+GCvVRD6+0h2rAI2eCS4aDyi4bQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Tambahkan stylesheet atau styling CSS sesuai kebutuhan -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 10px;
-            background-color: #f4f4f4;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: static;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        img {
-            max-width: 300px;
-            max-height: 300px;
-            width: auto;
-            height: auto;
-            display: block;
-            margin: auto;
-        }
-
-        #editButton, #deleteButton {
-            padding: 8px;
-            margin-bottom: 20px;
-            background-color: grey;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center; /* Center-align the button within the column */
-            display: block; /* Ensure it takes the full width of the container */
-            margin: auto; /* Center horizontally */
-        }
-
-        #tambahButton {
-            margin-bottom: 10px;
-            padding: 8px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            /* display: block; */
-            width: 100%;
-            text-align: center;
-        }
-    </style>
+    <title>Delete Data Barang</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- <a href="c.stok.php"><button id="tambahButton">Tambah</button></a><hr> -->
-
-
+    <nav>
+        <a href="index.php">Home<span></span></a>
+        <a href="katalog.php">Katalog<span></span></a>
+        <!-- <a href="#">About<span></span></a>
+        <a href="#">Service<span></span></a>
+        <a href="#">Contact<span></span></a>
+        <a href="#">Help<span></span></a> -->
+    </nav>
+    <hr>
 <?php
 include 'config.php';
 // Ambil ID barang dari URL
 $id_barang = $_GET['id_barang'];
 
 ?>
-<a href="c.stok.php?id_barang=<?php echo $id_barang; ?>"><button id="tambahButton">Tambah</button></a><hr>
+<div class="content">
+<h1 style="text-align: center; font-weight: bold; color: #f5d544; text-shadow: 2px 2px #FF0000;">HISTORY BELANJA PRODUK</h1>
+
 <script>
     function tambahButton(id_barang) {
-        window.location.href = "c.stok.php?id_barang=" + id_barang;
+        window.location.href = "./c/c.stok.php?id_barang=" + id_barang;
     }
 </script>
 <?php
@@ -124,79 +75,96 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteButton'])) {
 if ($result_toko->num_rows > 0) {
     $row_toko = $result_toko->fetch_assoc();
     ?>
-    <table>
-        <tr>
-            
-            <td rowspan="5"><a href="e.prod.php?id_barang=<?php echo $id_barang; ?>">
-            <img src="<?php echo $row_toko['img_prod']; ?>" alt="Foto Barang"></a>
-            </td>
-            <td>NAMA BARANG</td>
-            <td><?php echo $row_toko['nama_barang']; ?></td>
-        </tr>
-        <tr>
-            <td>DISKRIPSI</td>
-            <td><?php echo isset($row_toko['note']) ? $row_toko['note'] : ''; ?></td>
-        </tr>
-        <tr>
-            <td>SATUAN PRODUK</td>
-            <td><?php echo isset($row_toko['satuan_brg']) ? $row_toko['satuan_brg'] : ''; ?></td>
-        </tr>
-        <tr>
-            <td>HARGA JUAL</td>
-            <td>Rp. <?php echo number_format($row_toko['h_satuan'], 2, ',', '.'); ?></td>
-        </tr>
-    </table>
-    <hr>
-    <table>
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Tgl. Belanja</th>
-                <th>Nama Toko</th>
-                <th>Satuan</th>
-                <th>Harga Toko</th>
-                <th>Isi</th>
-                <th>Harga Jual</th>
-                <th>Exe</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Query untuk mendapatkan data dari tbl_prod dan tbl_toko
-            $sql_prod = "SELECT p.id_barang, p.id_belanja,p.tgl_belanja,p.nm_toko, p.satuan, p.h_toko, p.isi, (p.h_toko / p.isi) AS harga_jual
-                        FROM tbl_prod p
-                        JOIN tbl_toko t ON p.id_barang = t.id_barang
-                        WHERE p.id_barang = $id_barang";
-            $result_prod = $conn->query($sql_prod);
 
-            if ($result_prod->num_rows > 0) {
-                $no = 1;
-                while ($row_prod = $result_prod->fetch_assoc()) {
-                    echo "<tr>
-                            <td>" . $no . "</td>
-                            <td>" . $row_prod["tgl_belanja"] . "</td>
-                            <td>" . $row_prod["nm_toko"] . "</td>
-                            <td>" . $row_prod["satuan"] . "</td>
-                            <td>Rp. " . number_format($row_prod["h_toko"], 2, ',', '.') . "</td>
-                            <td>" . $row_prod["isi"] . "</td>
-                            <td>Rp. " . number_format($row_prod["harga_jual"], 2, ',', '.') . "</td>
-                            <td>
-                                <form method='post' action='e.stok.php?id_belanja=" . $row_prod['id_belanja'] . "' style='display:inline-block;'>
-                                    <button type='submit' name='editButton'>Edit</button>
-                                </form>
-                                <form method='post' action='e.delete.php?id_belanja=" . $row_prod['id_belanja'] . "' style='display:inline-block;'>
-                                    <button type='submit' name='deleteButton'>Delete</button>
-                                </form>
-                            </td>
-                        </tr>";
-                    $no++;
+        <table>
+            <tr>
+                <td rowspan="5"><a href="e.prod.php?id_barang=<?php echo $id_barang; ?>">
+                <img src="<?php echo $row_toko['img_prod']; ?>" alt="Foto Barang"></a>
+                </td>
+                <td>NAMA BARANG</td>
+                <td><?php echo $row_toko['nama_barang']; ?></td>
+            </tr>
+            <tr>
+                <td>DISKRIPSI</td>
+                <td><?php echo isset($row_toko['note']) ? $row_toko['note'] : ''; ?></td>
+            </tr>
+            <tr>
+                <td>SATUAN PRODUK</td>
+                <td><?php echo isset($row_toko['satuan_brg']) ? $row_toko['satuan_brg'] : ''; ?></td>
+            </tr>
+            <tr>
+                <td>HARGA JUAL</td>
+                <td>Rp. <?php echo number_format($row_toko['h_satuan'], 2, ',', '.'); ?></td>
+            </tr>
+        </table>
+        <hr>
+        <a href="c/c.stok.php?id_barang=<?php echo $id_barang; ?>"><button id="tambahButton">Tambah</button></a><hr>
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Tgl. Belanja</th>
+                    <th>Nama Toko</th>
+                    <th>Satuan</th>
+                    <th>Harga Toko</th>
+                    <th>Isi</th>
+                    <th>Harga Jual</th>
+                    <th style="width: 1%;">EXE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Query untuk mendapatkan data dari tbl_prod dan tbl_toko
+                $sql_prod = "SELECT p.id_barang, p.id_belanja,p.tgl_belanja,p.nm_toko, p.satuan, p.h_toko, p.isi, (p.h_toko / p.isi) AS harga_jual
+                            FROM tbl_prod p
+                            JOIN tbl_toko t ON p.id_barang = t.id_barang
+                            WHERE p.id_barang = $id_barang";
+                $result_prod = $conn->query($sql_prod);
+
+                if ($result_prod->num_rows > 0) {
+                    $no = 1;
+                    while ($row_prod = $result_prod->fetch_assoc()) {
+echo "<tr>
+        <td>" . $no . "</td>
+        <td>" . $row_prod["tgl_belanja"] . "</td>
+        <td>" . $row_prod["nm_toko"] . "</td>
+        <td>" . $row_prod["satuan"] . "</td>
+        <td>Rp. " . number_format($row_prod["h_toko"], 2, ',', '.') . "</td>
+        <td>" . $row_prod["isi"] . "</td>
+        <td>Rp. " . number_format($row_prod["harga_jual"], 2, ',', '.') . "</td>
+        <td>
+            <button onclick='editData(" . $row_prod["id_belanja"] . ")' class='btn btn-info btn-sm btn-block'><i class='fa fa-edit'></i></button>
+            <button onclick='deleteData(" . $row_prod["id_belanja"] . ")' class='btn btn-danger btn-sm btn-block'><i class='fa fa-trash'></i></button>
+        </td>
+    </tr>";
+
+                        $no++;
+                    }
+                } else {
+                    echo "<tr><td colspan='7'>Tidak ada data.</td></tr>";
                 }
-            } else {
-                echo "<tr><td colspan='7'>Tidak ada data.</td></tr>";
-            }
-            ?>
-        </tbody>
-    </table>
+                ?>
+            </tbody>
+        </table>
+    </div>
+    <script>
+    function editData(id) {
+        // Redirect atau lakukan operasi yang diperlukan untuk mengedit data dengan ID yang diberikan
+        window.location.href = 'e.stok.php?id_belanja=' + id;
+    }
+
+    function deleteData(id) {
+        // Tampilkan konfirmasi untuk menghapus data
+        var confirmation = confirm('Apakah Anda yakin ingin menghapus data ini?');
+
+        // Jika pengguna mengonfirmasi penghapusan, lakukan operasi penghapusan
+        if (confirmation) {
+            // Lakukan penghapusan data dengan ID yang diberikan
+            window.location.href = 'e.delete.php?id_belanja=' + id;
+        }
+    }
+</script>
+
     <?php
 } else {
     echo "Data barang tidak ditemukan.";

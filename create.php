@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO tbl_toko (img_prod, nama_barang, note, h_satuan) VALUES ('$img_dest', '$nama_barang', '$note', '$h_satuan')";
 
         if ($conn->query($sql) === TRUE) {
-            header("Location: index.php"); // Redirect kembali ke halaman utama setelah menambahkan data
+            header("Location: katalog.php"); // Redirect kembali ke halaman utama setelah menambahkan data
             exit();
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
@@ -35,75 +35,18 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 10px;
-    background-color: #f4f4f4;
-}
-
-form {
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="file"],
-textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-top: 10px;
-}
-
-/* Styling untuk tampilan responsif (opsional) */
-@media screen and (max-width: 600px) {
-    form {
-        margin: 10px;
-    }
-}
-
-    </style>
+    <title>New Produk</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
-<h1 style="text-align: center; font-weight: bold;">FORM TAMBAH PRODUK</h1>
+<h1 style="text-align: center; font-weight: bold; color: #f5d544; text-shadow: 2px 2px #FF0000;"">FORM TAMBAH PRODUK</h1>
 <form action="create.php" method="post" enctype="multipart/form-data">
     <label for="img_prod">Pilih Gambar:</label>
     <input type="file" id="img_prod" name="img_prod" accept="/img" onchange="previewImage()" required>
-    <img id="imagePreview" src="#" alt="Preview" style="max-width: 100%; display: none;"><br>
+    <img id="imagePreview" src="#" alt="Preview" style="max-width: 100%; display: none;"><br><br>
 
     <label for="nama_barang">Nama Barang:</label>
     <input type="text" name="nama_barang" required><br>

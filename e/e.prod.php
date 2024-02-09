@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../config.php';
 
 // Ambil ID barang dari URL
 $id_barang = $_GET['id_barang'];
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($conn->query($sql_edit) === TRUE) {
         echo "Data barang berhasil diubah.";
-        echo "<meta http-equiv='refresh' content='1;url=index.php'>";
+        echo "<meta http-equiv='refresh' content='1;url=../katalog.php'>";
     } else {
         echo "Error: " . $sql_edit . "<br>" . $conn->error;
     }
@@ -54,77 +54,14 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Data Barang</title>
-    <style>
-        /* Sesuaikan dengan kebutuhan styling Anda */
-            body {
-            font-family: Arial, sans-serif;
-            margin: 10px;
-            background-color: #f4f4f4;
-        }
-
-        form {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            font-weight: bold;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="file"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin-top: 10px;
-        }
-
-        /* Styling untuk tampilan responsif */
-        @media screen and (max-width: 600px) {
-            form {
-                margin: 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../style.css">
+    
 </head>
 <body>
 
-<h1>Edit Data Barang</h1>
+<h1 style="text-align: center; font-weight: bold; color: #f5d544; text-shadow: 2px 2px #FF0000;">Edit Data Produk</h1>
 <form method="POST" action="">
     <label for="newNamaBarang">Nama Barang:</label>
     <input type="text" id="newNamaBarang" name="newNamaBarang" value="<?php echo $nama_barang; ?>" required>

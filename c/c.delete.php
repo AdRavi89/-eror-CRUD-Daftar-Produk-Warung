@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Ensure the 'id_barang' parameter is set in the URL
@@ -23,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             if (isset($image_path) && !empty($image_path)) {
                 unlink($image_path); // Delete the image file from server
             }
-            // Redirect back to the index.php after successful deletion
-            header("Location: index.php");
+            // Redirect back to the katalog.php after successful deletion
+            header("Location: ../katalog.php");
             exit();
         } else {
             echo "Error: " . $sql_delete . "<br>" . $conn->error;

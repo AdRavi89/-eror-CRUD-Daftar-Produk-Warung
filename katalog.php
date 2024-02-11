@@ -26,12 +26,14 @@
         <table id="myTable">
             <thead>
                 <tr>
-                    <th onclick="sortTable(0)">No.</th>
+                    <!-- <th onclick="sortTable(0)">No.</th> -->
+                    <!-- <td style='text-align: center;'>".$row["id_barang"]."</td> bagian PHPnya-->
                     <th onclick="sortTable(1)">Barang</th>
                     <th>Deskripsi</th>
                     <th>EXE</th>
                 </tr>
             </thead>
+            
             <tbody>
                 <?php
                 include 'config.php';
@@ -42,8 +44,8 @@
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>
-                                <td style='text-align: center;'>".$row["id_barang"]."</td>
-                                <td style='text-align: center;'><img src='".$row["img_prod"]."' alt='nama_barang'><br><strong>".$row["nama_barang"]."</strong><br> Rp. ".number_format($row["h_satuan"], 2, ',', '.')."</td>
+                                
+                                <td style='text-align: center;'><img src='".$row["img_prod"]."' alt='nama_barang' style='max-width: 100%; height: auto;'><br><strong>".$row["nama_barang"]."</strong><br> Rp. ".number_format($row["h_satuan"], 2, ',', '.')."</td>
                                 <td>".$row["note"]."</td>
                                 <td>
                                     <button onclick='editData(".$row["id_barang"].")' class='btn btn-info btn-sm btn-block'><i class='fa fa-edit'></i></button>

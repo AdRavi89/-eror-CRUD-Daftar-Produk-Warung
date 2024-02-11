@@ -10,10 +10,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $img_prod = $_FILES["img_prod"];
     $img_name = $img_prod["name"];
     $img_tmp = $img_prod["tmp_name"];
-    $img_dest = 'image/' . $img_name;
 
-    // Memindahkan file gambar ke direktori "uploads"
+    // Buat nama file baru berdasarkan nama barang
+    $img_dest = 'image/' . $nama_barang . '.' . pathinfo($img_name, PATHINFO_EXTENSION);
+
+    // Memindahkan file gambar ke direktori "uploads" dan melakukan resize
     if(move_uploaded_file($img_tmp, $img_dest)) {
+        // Mendapatkan informasi ukuran gambar
+        list($width, $height) = getimagesize($img_dest);
+        
+        // Mengatur ukuran gambar maksimal menjadi 300x300
+        $max_size = 300;
+
+        // Mengatur ukuran gambar yang akan diresize
+        if ($width > $height) {
+            $new_width = $max_size;
+            $new_height = $height * ($max_size / $width);
+        } else {
+            $new_height = $max_size;
+            $new_width = $width * ($max_size / $height);
+        }
+
+        // Membuat gambar baru dengan ukuran yang diinginkan
+        $image_p = imagecreatetruecolor($new_width, $new_height);
+        $image = imagecreatefromjpeg($img_dest); // Ganti dengan imagecreatefrompng() jika file PNG
+
+        // Menyesuaikan ukuran gambar baru
+        imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+        // Menyimpan gambar baru dengan ukuran yang diinginkan
+        imagejpeg($image_p, $img_dest); // Ganti dengan imagepng() jika ingin menyimpan dalam format PNG
+
         // Menyimpan data ke database
         $sql = "INSERT INTO tbl_toko (img_prod, nama_barang, note, h_satuan) VALUES ('$img_dest', '$nama_barang', '$note', '$h_satuan')";
 
@@ -30,6 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

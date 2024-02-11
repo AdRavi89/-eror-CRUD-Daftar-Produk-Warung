@@ -37,12 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Update data di tabel tbl_toko berdasarkan id_barang
     $sql_edit = "UPDATE tbl_toko SET nama_barang = '$newNamaBarang', note = '$newNote', satuan_brg = '$newSatuan', h_satuan = '$newHargaJual' WHERE id_barang = $id_barang";
 
-    if ($conn->query($sql_edit) === TRUE) {
-        echo "Data barang berhasil diubah.";
-        echo "<meta http-equiv='refresh' content='1;url=../katalog.php'>";
-    } else {
-        echo "Error: " . $sql_edit . "<br>" . $conn->error;
-    }
+if ($conn->query($sql_edit) === TRUE) {
+    // Data berhasil diubah
+    echo "<script>alert('Data barang berhasil diubah.'); window.location.href = '../katalog.php';</script>";
+} else {
+    // Terjadi error saat mengubah data
+    echo "<script>alert('Error: " . $sql_edit . "\\n" . $conn->error . "');</script>";
+}
 }
 
 $conn->close();

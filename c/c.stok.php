@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Input Belanja</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../favico.png">
 </head>
 <body>
 <h1 style="text-align: center; font-weight: bold; color: #f5d544; text-shadow: 2px 2px #FF0000;">TAMBAH DATA BELANJA</h1>
@@ -87,4 +88,8 @@ $conn->close();
 </form>
 
 </body>
+<hr>
+<footer class="reveal-text" style="color: white; font-family: Helvetica, sans-serif; text-shadow: 2px 2px #696969; font-weight: bold; text-align: center; background-color: #f57aae;">
+  <p>Author : <a href="mailto:adwisravi@gmail.com" style="color: yellow;">AdRavi</a> | v. 1.0.240219.06.09</p>
+</footer>
 </html>

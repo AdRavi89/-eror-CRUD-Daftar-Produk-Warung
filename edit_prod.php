@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favico.png">
 </head>
 <body>
     <nav>
@@ -77,7 +78,7 @@
                 <tr>
                     <td rowspan="5">
                         <a href="e/e.prod.php?id_barang=<?php echo $id_barang; ?>">
-                            <img src="<?php echo $row_toko['img_prod']; ?>" alt="Foto Barang">
+                            <img src="<?php echo $row_toko['img_prod']; ?>" alt="Foto Barang" style='max-width: 100%; height: auto;'>
                         </a>
                     </td>
                     <td>NAMA BARANG</td>
@@ -166,4 +167,8 @@
         ?>
 
     </body>
+    <hr>
+<footer class="reveal-text" style="color: white; font-family: Helvetica, sans-serif; text-shadow: 2px 2px #696969; font-weight: bold; text-align: center; background-color: #f57aae;">
+  <p>Author : <a href="mailto:adwisravi@gmail.com" style="color: yellow;">AdRavi</a> | v. 1.0.240219.06.09</p>
+</footer>
     </html>

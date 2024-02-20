@@ -1,214 +1,246 @@
- * {
-     margin: 0;
-     padding: 0;
-     box-sizing: border-box;
-     font-family: Arial, sans-serif;
- }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
- a:link {
-     text-decoration: none;
- }
+a:link {
+    text-decoration: none;
+}
 
- hr {
-     background-color: #f57aae;
- }
+hr {
+    background-color: #f57aae;
+}
 
- nav {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     background-image: radial-gradient(#0d69c0, #0d69c0, #f5d544);
-     border-radius: 15px;
-     padding: 10px;
- }
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: radial-gradient(#0d69c0, #0d69c0, #f5d544);
+    border-radius: 15px;
+    padding: 10px;
+}
 
- nav a {
-     position: relative;
-     font-size: 1.1em;
-     font-weight: 500;
-     color: #f5d544;
-     padding: 6px 20px;
-     transition: .5s;
-     text-decoration: none;
- }
+nav a {
+    position: relative;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #f5d544;
+    padding: 6px 20px;
+    transition: .5s;
+    text-decoration: none;
+}
 
- nav a:hover {
-     color: #f57aae;
- }
+nav a:hover {
+    color: #f57aae;
+}
 
- nav a span {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     z-index: 1;
-     border-bottom: 2px solid #f57aae;
-     border-radius: 15px;
-     transform: scale(0) translateY(50px);
-     opacity: 0;
-     transition: .5s;
- }
+nav a span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-bottom: 2px solid #f57aae;
+    border-radius: 15px;
+    transform: scale(0) translateY(50px);
+    opacity: 0;
+    transition: .5s;
+}
 
- nav a:hover span {
-     transform: scale(1) translateY(0);
-     opacity: 1;
- }
+nav a:hover span {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
 
- body {
-     font-family: Arial, sans-serif;
-     margin: 20px;
-     background-image: linear-gradient(#f57aae, #0d69c0);
-     background-repeat: no-repeat;
-     background-attachment: fixed;
-     zoom: 80%;
-     }
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    /* background-color: #f57aae; */
+    background-image: linear-gradient(#f57aae, #0d69c0);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Tambahkan properti zoom untuk responsif scaling */
+    zoom: 80%;
+    }
 
- table {
-     width: 100%;
-     border-collapse: collapse;
- }
+table {
+    width: 100%;
+    border-collapse: collapse;
 
- th,
- td {
-     border: 1px solid #ddd;
-     padding: 8px;
- }
+}
 
- th {
-     background-color: #f2f2f2;
-     text-align: center;
- }
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-style: outset;
+}
 
- img {
-     max-width: 300px;
-     max-height: 300px;
-     width: auto;
-     height: auto;
-     display: block;
-     margin: auto;
-     margin-top: 10px;
- }
+th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
 
- #editButton,
- #deleteButton {
-     margin-bottom: 20px;
-     text-align: center;
-     display: block;
-     margin: auto;
- }
+img {
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
 
- #tambahButton {
-     margin-bottom: 10px;
-     padding: 8px;
-     background-color: #4CAF50;
-     color: white;
-     border: none;
-     border-radius: 8px;
-     cursor: pointer;
-     width: 100%;
-     text-align: center;
-     text-decoration: none;
-     }
+#editButton,
+#deleteButton {
+    margin-bottom: 20px;
+    text-align: center;
+    /* Center-align the button within the column */
+    display: block;
+    /* Ensure it takes the full width of the container */
+    margin: auto;
+    /* Center horizontally */
+}
 
- .content {
-     background-color: white;
-     padding: 20px;
-     border-radius: 8px;
-     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-     margin-bottom: 20px;
- }
+#tambahButton {
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    /* display: block; */
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    }
 
- form {
-     max-width: 600px;
-     margin: 20px auto;
-     background-color: #fff;
-     padding: 20px;
-     border-radius: 8px;
-     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- }
+.content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
 
- label {
-     display: block;
-     margin-bottom: 8px;
-     font-weight: bold;
- }
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
- select,
- input[type="text"],
- input[type="date"],
- input[type="number"],
- textarea {
-     width: 100%;
-     padding: 8px;
-     margin-bottom: 16px;
-     box-sizing: border-box;
-     border: 1px solid #ccc;
-     border-radius: 4px;
- }
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
 
- input[type="submit"] {
-     background-color: #4CAF50;
-     color: white;
-     padding: 10px 20px;
-     border: none;
-     border-radius: 4px;
-     cursor: pointer;
- }
+select,
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
- input[type="submit"]:hover {
-     background-color: #45a049;
- }
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
- /* Styling untuk tampilan responsif (opsional) */
- @media screen and (max-width: 600px) {
-     form {
-         margin: 10px;
-     }
- }
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
 
- /* CSS untuk tampilan desktop */
- @media screen and (min-width: 601px) {
-     table {
-         overflow-x: auto;
-     }
- }
+/* Styling untuk tampilan responsif (opsional) */
+@media screen and (max-width: 600px) {
+    form {
+        margin: 10px;
+    }
+}
 
- /* CSS untuk tampilan mobile */
- @media screen and (max-width: 600px) {
-     table {
-         overflow-x: auto;
-     }
- }
+/* CSS untuk tampilan desktop */
+@media screen and (min-width: 601px) {
+/* Tambahkan gaya CSS untuk tampilan desktop di sini */
+    table {
+        overflow-x: scroll;
+        }
+        }
 
- .gallery {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     flex-wrap: wrap;
- }
+/* CSS untuk tampilan mobile */
+@media screen and (max-width: 600px) {
+/* Tambahkan gaya CSS untuk tampilan mobile di sini */
+    table {
+        overflow-x: scroll;
+        }
+        }
 
- .gallery .gallery-item {
-     width: 200px;
-     margin: 10px;
-     text-align: center;
-     }
+.gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
-     .gallery .gallery-item img {
-         width: 100%;
-     height: auto;
-     border: 2px solid #ff3d0036;
-     border-radius: 13px;
-     box-shadow: 4px 7px 7px 0px #00000042;
-     cursor: pointer;
-     transition: transform 400ms;
-     }
+.gallery img {
+    width: 200px;
+    height: auto;
+    border: 2px solid #ff3d0036;
+    border-radius: 13px;
+    box-shadow: 4px 7px 7px 0px #00000042;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 400ms;
+    }
 
- .gallery .gallery-item img:hover {
-     transform: scale(1.12);
- }
+.gallery img:hover {
+    transform: scale(1.12);
+}
+
 .gallery-item p {
     margin-top: 10px;
     font-size: 14px;
     color: #666;
+}
+.fixed-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    /* Warna latar belakang sesuaikan dengan preferensi Anda */
+    padding: 10px 0;
+    /* Atur padding atas dan bawah sesuai kebutuhan */
+    z-index: 999;
+    /* Atur z-index sesuai kebutuhan */
+    text-align: center;
+}
+
+.fixed-header h1,
+.fixed-header button {
+    color: #f5d544;
+    /* Warna teks sesuaikan dengan preferensi Anda */
+    font-weight: bold;
+    text-shadow: 2px 2px #FF0000;
+    /* Efek shadow pada teks */
+}
+
+.fixed-header button {
+    margin-left: 10px;
+    /* Atur jarak antara tombol dan judul */
 }

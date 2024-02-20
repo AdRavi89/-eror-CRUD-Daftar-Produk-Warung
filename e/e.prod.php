@@ -13,6 +13,7 @@ $nama_barang = '';
 $note = '';
 $satuan_brg = '';
 $h_satuan = '';
+$stok = '';
 
 if ($result->num_rows > 0) {
     // Jika data ditemukan, ambil nilainya dan masukkan ke variabel
@@ -21,6 +22,7 @@ if ($result->num_rows > 0) {
     $note = $row['note'];
     $satuan_brg = $row['satuan_brg'];
     $h_satuan = $row['h_satuan'];
+    $stok = $row['stok'];
 } else {
     // Jika data tidak ditemukan, tampilkan pesan
     echo "Data barang tidak ditemukan.";
@@ -33,17 +35,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newNote = $_POST['newNote'];
     $newSatuan = $_POST['newSatuan'];
     $newHargaJual = $_POST['newHargaJual'];
+    $newStok = $_POST['newStok'];
 
     // Update data di tabel tbl_toko berdasarkan id_barang
-    $sql_edit = "UPDATE tbl_toko SET nama_barang = '$newNamaBarang', note = '$newNote', satuan_brg = '$newSatuan', h_satuan = '$newHargaJual' WHERE id_barang = $id_barang";
+    $sql_edit = "UPDATE tbl_toko SET nama_barang = '$newNamaBarang', note = '$newNote', satuan_brg = '$newSatuan', h_satuan = '$newHargaJual', stok = '$newStok' WHERE id_barang = $id_barang";
 
-if ($conn->query($sql_edit) === TRUE) {
-    // Data berhasil diubah
-    echo "<script>alert('Data barang berhasil diubah.'); window.location.href = '../katalog.php';</script>";
-} else {
-    // Terjadi error saat mengubah data
-    echo "<script>alert('Error: " . $sql_edit . "\\n" . $conn->error . "');</script>";
-}
+    if ($conn->query($sql_edit) === TRUE) {
+        echo "Data barang berhasil diubah.";
+        echo "<meta http-equiv='refresh' content='1;url=../katalog.php'>";
+    } else {
+        echo "Error: " . $sql_edit . "<br>" . $conn->error;
+    }
 }
 
 $conn->close();
@@ -58,6 +60,7 @@ $conn->close();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../favico.png">
     
 </head>
 <body>
@@ -78,6 +81,12 @@ $conn->close();
         <option value="Bungkus" <?php if ($satuan_brg === 'Bungkus') echo 'selected'; ?>>Bungkus</option>
     </select>
 
+    <label for="newStok">Stok:</label>
+    <select id="newStok" name="newStok" required>
+        <option value="ADA" <?php if ($stok === 'ADA') echo 'selected'; ?>>ADA</option>
+        <option value="KOSONG" <?php if ($stok === 'KOSONG') echo 'selected'; ?>>KOSONG</option>
+    </select>
+
     <label for="newHargaJual">Harga Jual:</label>
     <input type="text" id="newHargaJual" name="newHargaJual" value="<?php echo $h_satuan; ?>" required>
 
@@ -85,4 +94,8 @@ $conn->close();
 </form>
 
 </body>
+<hr>
+<footer class="reveal-text" style="color: white; font-family: Helvetica, sans-serif; text-shadow: 2px 2px #696969; font-weight: bold; text-align: center; background-color: #f57aae;">
+  <p>Author : <a href="mailto:adwisravi@gmail.com" style="color: yellow;">AdRavi</a> | v. 1.0.240219.06.09</p>
+</footer>
 </html>

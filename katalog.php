@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
-    </style>
+    <link rel="icon" type="image/png" href="favico.png">
 </head>
 <body>
     <nav>
@@ -20,20 +20,21 @@
     </nav>
     <hr>
     <div class="content">
-        <h1 style="text-align: center; font-weight: bold; color: #f5d544; text-shadow: 2px 2px #FF0000;">KATALOG PRODUK TOKOKU</h1>
+        <h1 id="judul" style="text-align: center; font-weight: bold; color: #f5d544; text-shadow: 2px 2px #FF0000;">KATALOG PRODUK TOKOKU</h1>
         <a href="create.php"><button id="tambahButton">Tambah</button></a>
         <hr>
+    </div>
+    <div class="content">
         <table id="myTable">
             <thead>
                 <tr>
                     <!-- <th onclick="sortTable(0)">No.</th> -->
-                    <!-- <td style='text-align: center;'>".$row["id_barang"]."</td> bagian PHPnya-->
+                    <!-- <td style='text-align: center;'>".$row["id_barang"]."</td> balikin ke bagian PHPnya klo mau pake id_barang-->
                     <th onclick="sortTable(1)">Barang</th>
                     <th>Deskripsi</th>
                     <th>EXE</th>
                 </tr>
             </thead>
-            
             <tbody>
                 <?php
                 include 'config.php';
@@ -44,8 +45,9 @@
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>
-                                
+
                                 <td style='text-align: center;'><img src='".$row["img_prod"]."' alt='nama_barang' style='max-width: 100%; height: auto;'><br><strong>".$row["nama_barang"]."</strong><br> Rp. ".number_format($row["h_satuan"], 2, ',', '.')."</td>
+                                
                                 <td>".$row["note"]."</td>
                                 <td>
                                     <button onclick='editData(".$row["id_barang"].")' class='btn btn-info btn-sm btn-block'><i class='fa fa-edit'></i></button>
@@ -115,4 +117,8 @@
         }
     </script>
 </body>
+<hr>
+<footer class="reveal-text" style="color: white; font-family: Helvetica, sans-serif; text-shadow: 2px 2px #696969; font-weight: bold; text-align: center; background-color: #f57aae;">
+  <p>Author : <a href="mailto:adwisravi@gmail.com" style="color: yellow;">AdRavi</a> | v. 1.0.240219.06.09</p>
+</footer>
 </html>
